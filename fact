@@ -1,0 +1,11 @@
+Function factorial(n):
+    If n == 0 or n == 1:
+        Return 1
+    Else:
+        Return n * factorial(n - 1)
+
+Start:
+    Input number
+    result = factorial(number)
+    Output result
+
