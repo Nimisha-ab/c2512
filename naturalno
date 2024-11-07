@@ -1,0 +1,16 @@
+print the natural numbers\\
+
+pseudofunction:
+function printNaturalno(number)
+      if(n>0)
+         for i=1 to N
+         end for
+       end if 
+       
+ printNaturalnoTest()
+         enter number
+         printNaturalno(number)
+ pseudocode:
+        printNaturalnoTest()
+             
+         

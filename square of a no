@@ -1,0 +1,15 @@
+ind square of a number\\
+
+pseudofunction:
+
+functoion squareofNo(number->int)->int
+          return number*number
+          
+ squarefNoTest()
+      enter number
+      square=squarefNo(number)
+      print square
+      
+pseudocode:
+         squareofNoTest()
+

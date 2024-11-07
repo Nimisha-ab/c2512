@@ -1,0 +1,14 @@
+check the avg of the 2 numbers//
+
+pseudofunction:
+
+function AvgOfNo(n1,n2)
+           float avg=(n1+n2)/2
+
+AvgOfNoTest()
+  input n1,n2
+  avg=AvgOfNo(n1,n2)
+  print avg
+  
+pseudocode: 
+AvgOfNoTest()

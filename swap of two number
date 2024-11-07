@@ -1,0 +1,14 @@
+swapping two numbers//
+
+pseudofunction:
+  function swapNo(&n1,&n2)
+        temp=n1
+        n1=n2
+        n2=temp
+ swapofTest()
+        enter n1,n2
+        swapNo(&n1,&n2)
+        print n1,n2
+ pseudocode:
+        swapofTest()
+        
