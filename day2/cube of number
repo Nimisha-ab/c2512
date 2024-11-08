@@ -1,0 +1,15 @@
+find cube of a number\\
+
+pseudofunction:
+
+functoion CubeofNo(number->int)->int
+          return number*number*number
+          
+ CubeofNoTest()
+      enter number
+      cube=CubeofNo(number)
+      print cube
+      
+pseudocode:
+         CubeofNoTest()
+
