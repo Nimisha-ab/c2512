@@ -1,0 +1,18 @@
+//leap year
+
+pseudofunctions :
+
+function isLeapYear(year -> int) -> bool
+        return ((year % 4 == 0 && year % 100 !=0) || (year % 400 == 0))
+           
+function isLeapYearTest()
+        input year
+        if (isLeapYear(year))
+           print "Leap Year"
+        else
+           print "Not Leap Year"
+        end if
+
+pseudocode :
+
+isLeapYearTest()

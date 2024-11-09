@@ -1,0 +1,31 @@
+
+check the no is pallindrome or not//
+
+pseudofunction:
+function revereseNumber(number)->int->int
+              original=number
+              reverse=0
+              
+              while(number!=0)
+                reminder=number%10
+                reverese=(reverese*10)+reminder
+                number=number/10
+              end while
+              
+              return reverse
+function ispallindromeNot(number)->int->bool
+              reverse=revereseNumber(number)
+              
+              return(number=reverse)
+              
+function ispallindromeTest()
+           enter number
+           if (spallindromeNot(number))
+              print"no is pallindrome"
+           else
+              print"no is not pallindrome"
+           end if
+           
+pseudocode:
+ 
+    ispallindromeTest()        
