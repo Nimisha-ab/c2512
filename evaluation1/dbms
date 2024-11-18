@@ -283,6 +283,12 @@ UPDATE customers SET aadhaar_id = '5553 8420' WHERE CustomerID = 5;
 | 3          | Sana         | 555-8765      | sana@example.com        | 2024-09-20     | 5553 8418  
 | 4          | Vinayak      | 555-4321      | vinayak@example.com     | 2024-08-05     | 5553 8419  
 | 5          | Vishakh      | 555-7890      | vishakh@example.com     | 2024-11-10     | 5553 8420 
+
+
+
+
+
+
 //average ticket price
 SELECT 
     AVG(p.Amount) AS AverageTicketPrice
