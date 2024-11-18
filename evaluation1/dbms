@@ -291,13 +291,9 @@ UPDATE customers SET aadhaar_id = '5553 8420' WHERE CustomerID = 5;
 
 //average ticket price
 SELECT 
-    AVG(p.Amount) AS AverageTicketPrice
+    AVG(Amount) AS AverageTicketPrice
 FROM 
-    BusPayments p
-JOIN 
-    BusBookings b ON p.BookingID = b.BookingID
-WHERE 
-    b.Status = 'booked';  
+    BusPayments;
 
 
 //select customer details  who made payments using a credit card
