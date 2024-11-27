@@ -1,0 +1,129 @@
+#002
+Implement a `Prescription` Class with Comparison Methods in C++
+
+`Task:` 
+    Create a class `Prescription` 
+    that represents a prescription 
+    with properties `PrescriptionID` (string) and 
+                    `Dosage` (int, in milligrams). 
+
+//prescription.h
+
+#pragma once
+
+#include<string>
+
+using std::string;
+
+class Prescription
+{
+	private:
+		string prescriptionId;
+		int dosage;
+	public:
+	
+    bool Equals(const Prescription& other);
+		bool NotEquals(const Prescription& other);
+		bool GreaterThan(const Prescription& other);
+		bool GreterThanEquals(const Prescription& other);
+		bool LessThan(const Prescription& other);
+		bool LessThanEquals(const Prescription& other);
+
+		Prescription(string p_prescriptionId,int p_dosage);
+};
+--------------------------------------------------
+    Implement the following methods 
+        to compare the dosage between two prescriptions:
+
+1. `Equals(const Prescription& other)` - 
+    Checks if two prescriptions have the same dosage.
+2. `NotEquals(const Prescription& other)` - 
+    Checks if two prescriptions have different dosages.
+3. `GreaterThan(const Prescription& other)` - 
+    Checks if one prescription has a higher dosage than another.
+4. `GreaterThanEquals(const Prescription& other)` - 
+    Checks if one prescription has a higher or equal dosage compared to another.
+5. `LessThan(const Prescription& other)` - 
+    Checks if one prescription has a lower dosage than another.
+6. `LessThanEquals(const Prescription& other)` - 
+    Checks if one prescription has a lower or equal dosage compared to another.
+
+//prescription.cpp
+
+#include <string>
+
+#include "prescription.h"
+using std::string;
+
+bool Prescription::Equals(const Prescription& other)
+{
+	return(dosage == other.dosage);
+}
+
+bool Prescription::NotEquals(const Prescription& other)
+{
+	return(dosage != other.dosage);
+}
+
+bool Prescription::GreaterThan(const Prescription& other)
+{
+	return(dosage > other.dosage);
+}
+
+bool Prescription::GreaterThanEquals(const Prescription& other)
+{
+	return(dosage >= other.dosage);
+}
+
+bool Prescription::LessThan(const Prescription& other)
+{
+	return(dosage < other.dosage);
+}
+
+bool Prescription::LessThanEquals(const Prescription& other)
+{
+	return(dosage <= other.dosage);
+}
+
+Prescription::Prescription(string p_prescriptionId,int p_dosage)
+{
+	prescriptionId = p_prescriptionId;
+	dosage = p_dosage;
+}
+
+
+---
+
+`
+//main.cpp
+
+#include<iostream>
+#include<iomanip>
+
+#include"prescription.h"
+
+
+int main() {
+    Prescription pres1("RX001", 500);
+    Prescription pres2("RX002", 400);
+
+   std::cout << std::boolalpha;
+    std::cout << "Equals: " << pres1.Equals(pres2) << std::endl;          // Output: false
+    std::cout << "GreaterThan: " << pres1.GreaterThan(pres2) << std::endl; // Output: true
+    std::cout << "LessThanEquals: " << pres1.LessThanEquals(pres2) << std::endl; // Output: false
+    std::cout << "LessThan: " << pres1.LessThan(pres2) << std::endl; // Output: false//output:false
+    std::cout << "GreaterThanEquals: " << pres1.GreaterThanEquals(pres2) << std::endl; // Output: true
+    std::cout << "NotEquals: " << pres1.NotEquals(pres2) << std::endl; // Output: true//output:true
+   
+
+
+    return 0;
+}
+//output
+Equals: false
+GreaterThan: true
+LessThanEquals: false
+LessThan: false
+GreaterThanEquals: true
+NotEquals: true
+
