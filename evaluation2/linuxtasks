@@ -1,0 +1,233 @@
+Task1:
+
+Beginner Level Problem Statement: 
+Using `vi` Editor for Simple C++ Program and File Management
+
+`Objective`:  
+Learn how to use the `vi` editor 
+to create, edit, and manage a basic C++ program. 
+This task will also help you practice basic Linux commands 
+for file management and program compilation.
+
+---
+
+
+
+1. `Create a C++ project directory`:
+   - Create a directory called `cpp_programs` to store your C++ program files.
+mkdir cpp_programs
+
+2. `Navigate to the project directory`:
+   - Change into the `cpp_programs` directory using the `cd` command.
+cd cpp_programs
+
+3. `Create a new C++ program file using `vi``:
+   - Open `vi` and create a new file named `hello_world.cpp`.
+vi hello_world.cpp
+
+4. `Write a simple C++ program`:
+   - In `vi`, write a basic C++ program 
+   that outputs "Hello, World!" to the console.
+
+   ```cpp
+   #include <iostream>
+   using namespace std;
+
+   int main() {
+       cout << "Hello, World!" << endl;
+       return 0;
+   }
+   ```
+
+5. `Save and exit the `vi` editor`:
+   - Save the program and exit `vi` using `:wq`.
+
+6. `Compile the C++ program`:
+   - Use the `g++` compiler to compile the program 
+   into an executable called `hello_world`.
+
+g++  hello_world.cpp
+
+7. `Run the compiled program`:
+   - Run the `hello_world` executable and confirm 
+   that it prints "Hello, World!" to the console.
+
+./a.out
+
+8. `Edit the program`:
+   - Reopen the file using `vi` and modify the program 
+   to ask the user for their name and 
+   print a personalized greeting. 
+   Save and exit the file again.
+
+vi helloworld.cpp
+
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+int main(){
+	char name[255];
+	cout<<"enter name:";
+	cin>>name;
+	cout<<"hello"<<name<<"!!!"<<endl;
+	return EXIT_SUCCESS;
+}
+
+save using :wq
+
+9. `Compile and run the modified program`:
+   - Recompile the program and run it to test if it asks 
+   for the user's name and displays the greeting correctly.
+
+g++ helloworld.cpp
+
+10. `Delete the C++ program file`:
+    - Once done, remove the `hello_world.cpp` file 
+    using the `rm` command.
+rm helloworld.cpp
+
+11. `Remove the project directory`:
+    - Check if the directory is empty and remove it.
+rmdir cpp_programs
+
+---
+
+`Goal`:  
+This task will help you understand 
+how to use the `vi` editor 
+to write simple C++ programs, edit them, 
+compile them using `g++`, and run them. 
+
+Additionally, you'll become familiar with Linux commands 
+for file and directory management.
+----------------------------------------------------------------------------------------------
+Task2:
+
+Beginner Level Problem Statement: 
+Managing C++ Files and Directories in Linux
+
+`Objective`:  
+Gain hands-on experience 
+with basic Linux commands while working 
+with a C++ project by 
+    creating, 
+    editing, 
+    compiling, and 
+    running simple programs.
+
+---
+
+`
+
+1. Create a new directory called `my_cpp_project` for your C++ programs.
+  mkdir my_cpp_project
+2. Change into the `my_cpp_project` directory.
+  cd my_cpp_project
+3. Create a C++ file named `greet.cpp` 
+in the `my_cpp_project` directory.
+  touch greet.cpp
+4. Write a C++ program inside `greet.cpp` 
+that asks the user for their name and prints a greeting message.
+  nano greet.cpp
+#include<iostream>
+#include<cstdlib>
+using namespace std;
+
+int main(){
+	char name[255];
+	cout<<"enter name:";
+	cin>>name;
+	cout<<"hello"<<name<<"!!!"<<endl;
+	return EXIT_SUCCESS;
+}
+  
+5. Compile the `greet.cpp` program into an executable.
+    g++ greet.cpp
+6. Run the compiled executable and ensure 
+that it prompts for the user’s name and displays the greeting.
+   ./a.out
+7. Use a Linux command to display the contents of `greet.cpp`.
+   cat greet.cpp
+8. Modify the `greet.cpp` file 
+to add a simple farewell message and save the changes.
+   nano greet.cpp
+
+  #include<iostream>
+#include<cstdlib>
+using namespace std;
+
+int main(){
+	char name[255];
+	cout<<"enter name:";
+	cin>>name;
+	cout<<"hello"<<name<<"all the best"<<endl;
+	return EXIT_SUCCESS;
+}
+  
+9. Compile and run the modified program 
+to ensure it works as expected.
+   g++ greet.cpp
+   ./a.out
+10. Remove the `greet.cpp` file once you're done.
+   rm greet.cpp
+11. Check the contents of the `my_cpp_project` directory, and 
+remove the directory if it’s empty.
+   rmdir my_cpp_project
+
+---
+
+`Goal`:  
+Through this task, you'll practice 
+using basic Linux commands such as 
+    directory creation, 
+    text file manipulation, 
+    compiling, and 
+    running programs, 
+helping you become more familiar 
+with the Linux environment for C++ development.
+----------------------------------------------------------------------------------------------------------------------------------------
+Task:3
+
+Linux File System 
+
+1. `What is it?`  
+   - A way Linux organizes and manages files on storage devices.
+
+2. `Key Features`:  
+   - `Hierarchical Structure`: Files are organized in a tree-like structure.  
+   - `Case-Sensitive`: File names like `File.txt` and `file.txt` are different.  
+   - `Unified Directory`: Everything (files, devices) is part of a single root (`/`).  
+
+3. `Important Directories`:  
+   - `/` (Root): Base of the file system.  
+   - `/home`: User directories.  
+   - `/bin`: Essential binary files (commands).  
+   - `/etc`: Configuration files.  
+   - `/var`: Logs and variable data.  
+   - `/tmp`: Temporary files.  
+
+4. `File Types`:  
+   - Regular files (text, binaries).  
+   - Directories (folders).  
+   - Special files (devices, sockets).  
+
+5. `Common File Systems`:  
+   - `Ext4`: Most widely used.  
+   - `XFS/Btrfs`: For advanced features like snapshots.  
+   - `NTFS/FAT`: For Windows compatibility.  
+
+6. `Permissions`:  
+   - Files have permissions for `read (r)`, `write (w)`, and `execute (x)` for `owner`, `group`, and `others`.
+   
+
+Read (r): Allows reading the file or listing the directory contents.
+Write (w): Allows modifying the file or adding/removing files in the directory.
+Execute (x): Allows executing the file or accessing the directory.
+Permissions are granted for three categories of users:
+
+Owner (user): The file's owner.
+Group: Other users in the file's group.
+Others: All other users.
+
+Linux's file system is robust, secure, and flexible for managing data!
