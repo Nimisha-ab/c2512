@@ -1,0 +1,509 @@
+step 1: crud operations
+
+#include <iostream>
+#include <iomanip>
+#include<string>
+using namespace std;
+
+// *****Const.h*****
+// Constants
+const int MAX_PRESCRIPTION = 100;
+// *****prescription.h*****
+class Prescription {
+    friend class PrescriptionManager;
+    private:
+        string PrescriptionId;
+        int Dosage;
+};
+// *****PrescriptionManager.h*****
+class PrescriptionManager {
+    private:
+        // attributes
+        Prescription Pres[MAX_PRESCRIPTION];    
+        int numPrescriptions;
+    public:
+        // support
+        int findIndexById(string PrescriptionId);
+        // behaviours
+        void create();
+        void displayAll();
+        void editById();
+        void deleteById();
+        //
+        PrescriptionManager();
+};
+// *****Menu.h*****
+void printMenu();
+
+// *****Main.cpp*****
+
+int main() {
+    PrescriptionManager manager;
+   
+    int choice; // User's menu choice
+
+    do {
+        printMenu(); // Display menu
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        // Menu-driven functionality
+        switch (choice) {
+            case 1: manager.create();    break;
+            case 2: manager.displayAll();  break;
+            case 3: manager.editById();      break;
+            case 4: manager.deleteById();    break;
+            case 5:
+                cout << "Exiting the system. Goodbye!\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a number between 1 and 5.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
+
+// *****PrescriptionManager.cpp*****
+/**
+ * @brief Creates a new Prescription and stores details in arrays. 
+ */
+void PrescriptionManager::create() {
+    if (numPrescriptions >= MAX_PRESCRIPTION) {
+        cout << "Error: Maximum prescription limit reached.\n";
+        return;
+    }
+
+    string PrescriptionId;
+    int Dosage;
+
+    cout << "Enter  PrescriptionId: ";
+    cin >> PrescriptionId;
+
+    // Ensure prescriptions PrescriptionId is unique
+    if (findIndexById(PrescriptionId) != -1) {
+        cout << "Error: Prescription PrescriptionId already exists. Please use a unique PrescriptionId.\n";
+        return;
+    }
+
+    cout << "Enter dosage: ";
+    cin >> Dosage;
+
+    // Store the prescription details
+    Pres[numPrescriptions].PrescriptionId = PrescriptionId;
+    Pres[numPrescriptions].Dosage = Dosage;
+    numPrescriptions++;
+
+    cout << "Prescription created successfully.\n";
+}
+
+/**
+ * @brief Displays all existing prescription in a tabular format.
+ */
+void PrescriptionManager::displayAll() {
+    if (numPrescriptions == 0) {
+        cout << "No prescription available to display.\n";
+        return;
+    }
+
+    cout << "------------------------------------\n";
+    cout << "|   PrescriptionId | dosage        |\n";
+    cout << "------------------------------------\n";
+    for (int i = 0; i < numPrescriptions; i++) {
+        cout << "| " << setw(14)<<left << Pres[i].PrescriptionId << " | "
+             << setw(16)<<left << Pres[i].Dosage << " |\n";
+    }
+    cout << "-------------------------------------\n";
+}
+
+
+int PrescriptionManager::findIndexById(string PrescriptionId) {
+    for (int i = 0; i < numPrescriptions; i++) {
+        if (Pres[i].PrescriptionId == PrescriptionId) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/**
+ * @brief Edits an existing prescription by PrescriptionId.
+ */
+void PrescriptionManager::editById() {
+    string PrescriptionId;
+    cout << "Enter Prescription PrescriptionId to edit: ";
+    cin >> PrescriptionId;
+
+    int index = findIndexById(PrescriptionId);
+    if (index == -1) {
+        cout << "Error: Prescription PrescriptionId not found.\n";
+        return;
+    }
+
+    cout << "Current Details - dosage: " << Pres[index].Dosage << "\n";
+
+    cout << "Enter New dosage: ";
+    cin >> Pres[index].Dosage;
+
+    cout << "Prescription updated successfully.\n";
+}
+
+/**
+ * @brief Deletes an existing prescription by PrescriptionId.
+ */
+void PrescriptionManager::deleteById() {
+    string PrescriptionId;
+    cout << "Enter  PrescriptionId to delete: ";
+    cin >> PrescriptionId;
+
+    int index = findIndexById(PrescriptionId);
+    if (index == -1) {
+        cout << "Error:  PrescriptionId not found.\n";
+        return;
+    }
+
+    // Shift data to fill the gap
+    for (int i = index; i < numPrescriptions - 1; i++) {
+        Pres[i] = Pres[i + 1];
+    }
+    numPrescriptions--;
+
+    cout << "Prescription deleted successfully.\n";
+}
+
+PrescriptionManager::PrescriptionManager() {
+    numPrescriptions = 0;
+}
+// *****Menu.cpp*****
+void printMenu() {
+    cout << "\n=== Prescription Management Module ===\n";
+    cout << "1. Create Prescription\n";
+    cout << "2. Display All Prescription\n";
+    cout << "3. Edit Prescription\n";
+    cout << "4. Delete Prescription\n";
+    cout << "5. Exit\n";
+}
+-----------------------------------------------------------------------------------------------------------
+step2:add aggregators to crud operations
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+// *****Const.h*****
+// Constants
+const int MAX_PRESCRIPTION = 100;
+// *****Prescription.h*****
+class Prescription {
+    friend class PrescriptionManager;
+    private:
+        string PrescriptionId;
+        int Dosage;
+    public:
+        bool GreaterThan(const Prescription& other);
+        bool LessThan(const Prescription& other);
+         //getters-setters
+        string GetPrescriptionId();
+        int GetDosage();
+};
+// *****PrescriptionManager.h*****
+class PrescriptionManager {
+    friend class PrescriptionAggregator;
+    friend int main();
+    private:
+        // attributes
+        Prescription Pres[MAX_PRESCRIPTION];    
+        int numPrescriptions;
+    public:
+        // support
+        int findIndexById(string PrescriptionId);
+        // behaviours
+        void create();
+        void displayAll();
+        void editById();
+        void deleteById();
+        //
+        PrescriptionManager();
+};
+//*****PrescriptionAggregator.h*****
+class PrescriptionAggregator {
+    public:
+        int findMin(PrescriptionManager& manager);
+        int findMax(PrescriptionManager& manager);
+        int findSecondMin(PrescriptionManager& manager);
+        int findSecondMax(PrescriptionManager& manager);
+};
+// *****Menu.h*****
+void printMenu();
+
+// *****Main.cpp*****
+
+int main() {
+    PrescriptionManager manager;
+    PrescriptionAggregator aggregator;
+   
+    int choice; // User's menu choice
+
+    do {
+        printMenu(); // Display menu
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        // Menu-driven functionality
+        switch (choice) {
+            case 1: manager.create();    break;
+            case 2: manager.displayAll();  break;
+            case 3: manager.editById();      break;
+            case 4: manager.deleteById();    break;
+            case 5: 
+                std::cout << "Prescription with Min dosage : " 
+                    << manager.Pres[aggregator.findMin(manager)].GetPrescriptionId() 
+                    << " with Dosage " 
+                    << manager.Pres[aggregator.findMin(manager)].GetDosage() 
+                    << std::endl;
+                break;
+            case 6: 
+                std::cout << "Prescription with Max dosage : " 
+                    << manager.Pres[aggregator.findMax(manager)].GetPrescriptionId() 
+                    << " with Dosage " 
+                    << manager.Pres[aggregator.findMax(manager)].GetDosage() 
+                    << std::endl;
+                break;
+            case 7: 
+                std::cout << "Prescription with 2nd Min dosage: " 
+                    << manager.Pres[aggregator.findSecondMin(manager)].GetPrescriptionId() 
+                    << " with Dosage " 
+                    << manager.Pres[aggregator.findSecondMin(manager)].GetDosage() 
+                    << std::endl;
+                break;
+            case 8: 
+                std::cout << "Prescription with 2n Max dosage: " 
+                    << manager.Pres[aggregator.findSecondMax(manager)].GetPrescriptionId() 
+                    << " with Dosage " 
+                    << manager.Pres[aggregator.findSecondMax(manager)].GetDosage() 
+                    << std::endl;
+                break;
+            case 9:
+                cout << "Exiting the system. Goodbye!\n";
+                break;
+            default:
+                cout << "Invalid choice. Please enter a number between 1 and 5.\n";
+        }
+    } while (choice != 9);
+
+    return 0;
+}
+
+// *****PrescriptionManager.cpp*****
+/**
+ * @brief Creates a new prescription and stores details in arrays. 
+ */
+void PrescriptionManager::create() {
+    if (numPrescriptions >= MAX_PRESCRIPTION) {
+        cout << "Error: Maximum prescriptionlimit reached.\n";
+        return;
+    }
+
+    string PrescriptionId;
+    int Dosage;
+
+    cout << "Enter  PrescriptionId: ";
+    cin >> PrescriptionId;
+
+    // Ensure  PrescriptionId is unique
+    if (findIndexById(PrescriptionId) != -1) {
+        cout << "Error: Prescription PrescriptionId already exists. Please use a unique PrescriptionId.\n";
+        return;
+    }
+
+    cout << "Enter dosage: ";
+    cin >> Dosage;
+
+    // Store the prescription details
+    Pres[numPrescriptions].PrescriptionId = PrescriptionId;
+    Pres[numPrescriptions].Dosage = Dosage;
+    numPrescriptions++;
+
+    cout << "Prescription created successfully.\n";
+}
+
+/**
+ * @brief Displays all existing Pres in a tabular format.
+ */
+void PrescriptionManager::displayAll() {
+    if (numPrescriptions == 0) {
+        cout << "No Prescription available to display.\n";
+        return;
+    }
+
+    cout << "-------------------------------------\n";
+    cout << "|   PrescriptionId | dosage         |\n";
+    cout << "-------------------------------------\n";
+    for (int i = 0; i < numPrescriptions; i++) {
+        cout << "| " << setw(14) << Pres[i].PrescriptionId << " | "
+             << setw(16) << Pres[i].Dosage << " |\n";
+    }
+    cout <<"--------------------------------------\n";
+}
+
+/**
+ * @brief Finds the index of a prescription by PrescriptionId.
+ * @param PrescriptionId Prescription PrescriptionId to search for.
+ * @return Index of the prescription if found, -1 otherwise.
+ */
+int PrescriptionManager::findIndexById(string PrescriptionId) {
+    for (int i = 0; i < numPrescriptions; i++) {
+        if (Pres[i].PrescriptionId == PrescriptionId) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+/**
+ * @brief Edits an existing prescription by PrescriptionId.
+ */
+void PrescriptionManager::editById() {
+    string PrescriptionId;
+    cout << "Enter Prescription PrescriptionId to edit: ";
+    cin >> PrescriptionId;
+
+    int index = findIndexById(PrescriptionId);
+    if (index == -1) {
+        cout << "Error:  PrescriptionId not found.\n";
+        return;
+    }
+
+    cout << "Current Details - dosage: " << Pres[index].Dosage << "\n";
+
+    cout << "Enter New dosage: ";
+    cin >> Pres[index].Dosage;
+
+    cout << "Prescription updated successfully.\n";
+}
+
+/**
+ * @brief Deletes an existing prescription by PrescriptionId.
+ */
+void PrescriptionManager::deleteById() {
+    string PrescriptionId;
+    cout << "Enter  PrescriptionId to delete: ";
+    cin >> PrescriptionId;
+
+    int index = findIndexById(PrescriptionId);
+    if (index == -1) {
+        cout << "Error:  PrescriptionId not found.\n";
+        return;
+    }
+
+    // Shift data to fill the gap
+    for (int i = index; i < numPrescriptions - 1; i++) {
+        Pres[i] = Pres[i + 1];
+    }
+    numPrescriptions--;
+
+    cout << "Prescription deleted successfully.\n";
+}
+
+PrescriptionManager::PrescriptionManager() {
+    numPrescriptions = 0;
+}
+// *****Menu.cpp*****
+void printMenu() {
+    cout << "\n=== Prescription Management Module ===\n";
+    cout << "1. Create Prescription\n";
+    cout << "2. Display All Prescription\n";
+    cout << "3. Edit Prescription\n";
+    cout << "4. Delete Prescription\n";
+    cout << "5. Find Min Prescription\n";
+    cout << "6. Find Max Prescription\n";
+    cout << "7. Find Second Min Prescription\n";
+    cout << "8. Find Second Max Prescription\n";
+    cout << "9. Exit\n";
+}
+
+//*****Prescription.cpp*****
+bool Prescription::GreaterThan(const Prescription& other)
+{
+    return (Dosage > other.Dosage);
+}
+
+bool Prescription::LessThan(const Prescription& other)
+{
+    return (Dosage < other.Dosage);
+}
+
+//getters-setters
+string Prescription::GetPrescriptionId()
+{
+    return PrescriptionId;
+}
+int Prescription::GetDosage()
+{
+    return Dosage;
+}
+//*****PrescriptionAggregator.cpp*****
+// Function to find the index of the Prescription with the minimum years of pres
+int PrescriptionAggregator::findMin(PrescriptionManager& manager) {
+    Prescription* arr = manager.Pres;
+    int& n = manager.numPrescriptions;
+    //
+    int minIndex = 0;
+    for (int i = 1; i < n; ++i) {
+        if (arr[i].LessThan(arr[minIndex])) {
+            minIndex = i;
+        }
+    }
+    return minIndex;
+}
+
+// Function to find the index of the Prescription with the maximum years of pres
+int PrescriptionAggregator::findMax(PrescriptionManager& manager) {
+    Prescription* arr = manager.Pres;
+    int& n = manager.numPrescriptions;
+    //
+    int maxIndex = 0;
+    for (int i = 1; i < n; ++i) {
+        if (arr[i].GreaterThan(arr[maxIndex])) {
+            maxIndex = i;
+        }
+    }
+    return maxIndex;
+}
+
+// Function to find the index of the Prescription with the second minimum years of pres
+int PrescriptionAggregator::findSecondMin(PrescriptionManager& manager) {
+    Prescription* arr = manager.Pres;
+    int& n = manager.numPrescriptions;
+    //
+    int minIndex = findMin(manager);
+    int secondMinIndex = (minIndex == 0) ? 1 : 0;
+    
+    for (int i = 0; i < n; ++i) {
+        if (i != minIndex) {
+            if (arr[i].LessThan(arr[secondMinIndex])) {
+                secondMinIndex = i;
+            }
+        }
+    }
+    return secondMinIndex;
+}
+
+// Function to find the index of the Prescription with the second maximum years of pres
+int PrescriptionAggregator::findSecondMax(PrescriptionManager& manager) {
+    Prescription* arr = manager.Pres;
+    int& n = manager.numPrescriptions;
+    //
+    int maxIndex = findMax(manager);
+    int secondMaxIndex = (maxIndex == 0) ? 1 : 0;
+    
+    for (int i = 0; i < n; ++i) {
+        if (i != maxIndex) {
+            if (arr[i].GreaterThan(arr[secondMaxIndex])) {
+                secondMaxIndex = i;
+            }
+        }
+    }
+    return secondMaxIndex;
+}
