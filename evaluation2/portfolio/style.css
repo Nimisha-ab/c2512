@@ -1,0 +1,17 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+/* Hero Section */
+header {
+    background: url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+    color: white;
+}
+
+
+
+footer {
+    font-size: 1 em;
+}
