@@ -1,0 +1,166 @@
+//task1
+
+#include <iostream>
+#include <string>
+
+// Base Class: Animal
+class Animal {
+protected:
+    std::string species;
+
+public:
+    Animal(const std::string& species) : species(species) {
+        std::cout << "Animal constructor called." << std::endl;
+    }
+
+    ~Animal() {
+        std::cout << "Animal destructor called." << std::endl;
+    }
+
+     void move() {
+        std::cout << species << " is moving." << std::endl;
+    }
+};
+
+// Derived Class 1: Mammal
+class Mammal : virtual public Animal {
+protected:
+    std::string furColor;
+
+public:
+    Mammal(const std::string& species, const std::string& furColor) 
+        : Animal(species), furColor(furColor) {
+        std::cout << "Mammal constructor called." << std::endl;
+    }
+
+    ~Mammal() {
+        std::cout << "Mammal destructor called." << std::endl;
+    }
+
+    void giveBirth() {
+        std::cout << "Mammal is giving birth." << std::endl;
+    }
+};
+
+// Derived Class 2: Bird
+class Bird : virtual public Animal {
+protected:
+    double wingSpan;
+
+public:
+    Bird(const std::string& species, double wingSpan) 
+        : Animal(species), wingSpan(wingSpan) {
+        std::cout << "Bird constructor called." << std::endl;
+    }
+
+    ~Bird() {
+        std::cout << "Bird destructor called." << std::endl;
+    }
+
+    void layEggs() {
+        std::cout << "Bird is laying eggs." << std::endl;
+    }
+};
+
+// Final Derived Class: Bat
+class Bat : public Mammal, public Bird {
+private:
+    bool echolocation;
+
+public:
+    Bat(const std::string& species, const std::string& furColor, double wingSpan, bool echolocation) 
+        : Animal(species), Mammal(species, furColor), Bird(species, wingSpan), echolocation(echolocation) {
+        std::cout << "Bat constructor called." << std::endl;
+    }
+
+    ~Bat() {
+        std::cout << "Bat destructor called." << std::endl;
+    }
+
+    void fly() {
+        std::cout << "Bat is flying." << std::endl;
+    }
+};
+
+int main() {
+    // Static object for Bat
+    Bat staticBat("Bat", "Brown", 2.5, true);
+    staticBat.move();
+    staticBat.giveBirth();
+    staticBat.layEggs();
+    staticBat.fly();
+
+    // Dynamic object for Bat
+    Bat* dynamicBat = new Bat("Bat", "Brown", 2.5, true);
+    dynamicBat->move();
+    dynamicBat->giveBirth();
+    dynamicBat->layEggs();
+    dynamicBat->fly();
+    delete dynamicBat;
+
+    return 0;
+}
+
+//task2
+
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    string name;
+
+    Person(string name) : name(name) {
+        cout << "Person constructor: " << name << endl;
+    }
+
+    ~Person() {
+        cout << "Person destructor: " << name << endl;
+    }
+
+    void introduce() {
+        cout << "Hi, I am " << name << endl;
+    }
+};
+
+class Student : public Person {
+public:
+    int grade;
+
+    Student(string name, int grade) : Person(name), grade(grade) {
+        cout << "Student constructor: " << name << endl;
+    }
+
+    ~Student() {
+        cout << "Student destructor: " << name << endl;
+    }
+
+    void study() {
+        cout << name << " is studying in grade " << grade << endl;
+    }
+};
+
+int main() {
+    //Static objects
+    Person person1("Nimisha");
+    Student student1("Bob", 10);
+
+    person1.introduce();
+    student1.introduce();
+    student1.study();
+    
+
+    // Dynamic objects
+    Person* person2 = new Person("Nimisha");
+    Student* student2 = new Student("bob", 10);
+
+    person2->introduce();
+    student2->introduce();
+    student2->study();
+
+    delete person2;
+    delete student2;
+
+    return 0;
+}
