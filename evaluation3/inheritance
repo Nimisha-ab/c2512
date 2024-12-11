@@ -1,3 +1,23 @@
+Examples for diamond problem in inheritance:
+=============================================================
+These class structures represent the diamond problem,
+where the `final derived class` 
+inherits ambiguously 
+from two intermediate classes 
+that share a common base class.
+=============================================================
+Create one static object for final-derived class
+and call all behaviours
+and 
+one dynamic object for final-derived class 
+and call all behaviours
+
+Define constructors and destructors for all the classes 
+`Animal Classification`
+- `Base Class:` Animal `{field: species, behavior: move()}`
+- `Derived Class 1:` Mammal `{field: furColor, behavior: giveBirth()}`
+- `Derived Class 2:` Bird `{field: wingSpan, behavior: layEggs()}`
+- `Final Derived Class:` Bat `{field: echolocation, behavior: fly()}`
 //task1
 
 #include <iostream>
@@ -101,6 +121,20 @@ int main() {
     return 0;
 }
 
+
+single inheritance using static binding:
+=============================================================
+Create two static objects for Both Base and Derived class
+and call all behaviours
+and 
+one two dynamic objects for Base and Derived class 
+and call all behaviours
+
+Define constructors and destructors for all the classes 
+Academic System`
+- `Base Class:` Person `{field: name, behavior: introduce()}`
+- `Derived Class:` Student `{field: grade, behavior: study()}`
+
 //task2
 
 #include <iostream>
@@ -161,6 +195,95 @@ int main() {
 
     delete person2;
     delete student2;
+
+    return 0;
+}
+
+single inheritance with dynamic binding
+=============================================================
+one two dynamic/static objects of the Derived class 
+pointed by base class pointer
+and call all behaviours using Base class pointer 
+
+Override Base Class behaviors to derived class.
+Define constructors and destructors for all the classes 
+Define all the fields as dynamic fields in each class 
+
+If you use string, use c-string (don't use string class)
+        ie. dynamic c-string [dynamic char array]
+`Animal and Dog`
+- `Base Class:` `Animal`  
+  - Fields: `species`  
+  - Pure Virtual Behaviors: `makeSound()`, `move()`  
+- `Derived Class:` `Dog`  
+  - Fields: `breed`
+
+//task3
+
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+class Animal {
+public:
+    Animal(const char* species) {
+        this->species = new char[strlen(species) + 1];
+        strcpy(this->species, species);
+        cout << "Animal constructor called.." << endl;
+    }
+
+    virtual ~Animal() {
+        cout << "Animal destructor called.." << endl;
+        delete[] species;
+    }
+
+    virtual void makeSound() = 0;
+    virtual void move() = 0;
+
+protected:
+    char* species;
+};
+
+class Dog : public Animal {
+public:
+    Dog(const char* species, const char* breed) : Animal(species) {
+        this->breed = new char[strlen(breed) + 1];
+        strcpy(this->breed, breed);
+        cout << "Dog constructor called.." << endl;
+    }
+
+    ~Dog() {
+        cout << "Dog destructor: " << endl;
+        delete[] breed;
+    }
+
+    void makeSound() override {
+        cout << "Woof!" << endl;
+    }
+
+    void move() override {
+        cout << "Dog is running" << endl;
+    }
+
+private:
+    char* breed;
+};
+
+int main() {
+    Animal* an1 = new Dog("canine", "golden retriever");
+    Animal* an2 = new Dog("canine", "pomerian");
+
+    cout << "=== Animal 1 ===" << endl;
+    an1->makeSound();
+    an1->move();
+
+    cout << "=== Animal 2 ===" << endl;
+    an2->makeSound();
+    an2->move();
+
+    delete an1;
+    delete an2;
 
     return 0;
 }
