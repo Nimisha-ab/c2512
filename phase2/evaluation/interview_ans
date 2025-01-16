@@ -1,0 +1,201 @@
+questions
+
+80. What is function pointer ?
+81. Create a default constructor
+82. Parameterized constructor
+83. Copy constructor for the same
+84. Operator overloading (- and +)
+85. Call by value and Call by reference
+86. Find the output qns of Pointers.
+87. Inheritance Questions
+88. Function override code
+89. Virtual functions
+90. What is virtual function and add virtual function to above example , declare object using new 
+91. what is copy constructor and show an  example  
+92. what is STL,write syntax for vector with some functions
+93. What is stack and queue 
+94. Oops concepts with real world example.
+95. Implement all types of constructors.
+96. Demonstrate  polymorphism and inheritance for a given scenario.
+97. Types of inheritance.
+98. Pointer with example, dynamic memory allocation and object creation.
+99. MFC- simple registration form.
+
+Answers:
+80.Function Pointer: A pointer that points to a function, allowing dynamic function calls.
+   A function pointer is a variable that stores the address of a function. Instead of directly calling a function, we can call the function through the function pointer. Function pointers are useful for scenarios where we want to dynamically choose the function to call, for example, callback mechanisms, event handling, or implementing strategies.
+
+Syntax:
+
+
+return_type (*function_pointer_name)(parameter_types)
+
+81.Default Constructor:A default constructor is a constructor that takes no parameters (or has default values for all parameters). If no constructor is defined explicitly, the compiler provides a default constructor that initializes the object with default values.
+
+
+
+class MyClass {
+public:
+    MyClass() {
+        // Default constructor
+    }
+};
+82.Parameterized Constructor:A parameterized constructor is a constructor that takes one or more parameters. It allows you to initialize an object with custom values when the object is created.
+
+
+class MyClass {
+public:
+    MyClass(int x) {
+        // Parameterized constructor
+    }
+};
+83.Copy Constructor:A copy constructor is a constructor that creates a new object as a copy of an existing object. It is called when:
+
+
+class MyClass {
+public:
+    MyClass(const MyClass &obj) {
+        // Copy constructor
+    }
+};
+84.Operator Overloading (- and +):Operator overloading allows you to define custom behavior for operators when they are applied to user-defined types (such as classes). In C++, operators like +, -, *, [], (), etc., can be overloaded to work with objects of user-defined classes in the same way they work with built-in types.
+
+
+class MyClass {
+public:
+    int value;
+    MyClass operator+(const MyClass &obj) {
+        return MyClass(value + obj.value);
+    }
+    MyClass operator-(const MyClass &obj) {
+        return MyClass(value - obj.value);
+    }
+};
+85.Call by Value vs Call by Reference:
+Call by Value: Passing a copy of the variable.
+Call by Reference: Passing the actual reference (address) of the variable.
+Pointers Output Example:
+
+
+86.int x = 5;
+int *p = &x;
+cout << *p; // Output: 5
+Inheritance Questions: It is the concept of one class inheriting properties and behaviors from another.
+
+88.Function Override Code:
+
+
+
+class Base {
+public:
+    virtual void display() { cout << "Base Display"; }
+};
+
+class Derived : public Base {
+public:
+    void display() override { cout << "Derived Display"; }
+};
+89.Virtual Functions: Functions in a base class that can be overridden in derived classes.
+
+90.Add Virtual Function Example:
+
+
+
+class Base {
+public:
+    virtual void display() { cout << "Base Display"; }
+};
+
+class Derived : public Base {
+public:
+    void display() override { cout << "Derived Display"; }
+};
+
+int main() {
+    Base *b = new Derived();
+    b->display(); // Output: Derived Display
+}
+91.Copy Constructor Example:
+
+
+class MyClass {
+public:
+    int x;
+    MyClass(int x) { this->x = x; }
+    MyClass(const MyClass &obj) { x = obj.x; }
+};
+92.STL (Standard Template Library): A collection of template classes for data structures and algorithms. Example for vector:
+
+
+#include <vector>
+std::vector<int> v;
+v.push_back(10);
+v.push_back(20);
+93.Stack and Queue:
+Stack: LIFO structure (Last In, First Out).
+Queue: FIFO structure (First In, First Out).
+94.OOP Concepts with Real World Example:
+Encapsulation: A car's engine (internals) hidden inside, you use the steering wheel (interface).
+Inheritance: Dog inheriting from Animal class.
+Polymorphism: Same interface, different implementation (overloading/overriding).
+Abstraction: Simplified user interface hiding complexity.
+95.Implement All Types of Constructors:
+
+
+class MyClass {
+public:
+    int x;
+    MyClass() { x = 0; } // Default Constructor
+    MyClass(int x) { this->x = x; } // Parameterized Constructor
+    MyClass(const MyClass &obj) { x = obj.x; } // Copy Constructor
+};
+96.Demonstrate Polymorphism and Inheritance:
+
+
+class Animal {
+public:
+    virtual void sound() { cout << "Animal sound"; }
+};
+
+class Dog : public Animal {
+public:
+    void sound() override { cout << "Bark"; }
+};
+97.Types of Inheritance:
+Single, Multiple, Multilevel, Hierarchical, Hybrid.
+Single Inheritance:
+A class inherits from only one base class.
+Example: Dog inherits from Animal.
+
+class Dog : public Animal {};
+2. Multiple Inheritance:
+A class inherits from more than one base class.
+Example: Eagle inherits from Animal and Bird.
+
+class Eagle : public Animal, public Bird {};
+3. Multilevel Inheritance:
+A class is derived from another derived class, forming a chain.
+Example: Puppy inherits from Dog, which inherits from Animal.
+
+class Puppy : public Dog {};
+4. Hierarchical Inheritance:
+Multiple classes inherit from a single base class.
+Example: Dog and Cat inherit from Animal.
+
+class Dog : public Animal {};
+class Cat : public Animal {};
+5. Hybrid Inheritance:
+A combination of multiple inheritance types.
+Example: Bat inherits from both Animal and Bird.
+
+
+class Bat : public Animal, public Bird {};
+
+
+
+98.Pointer Example and Dynamic Memory Allocation:
+
+Dynamic memory allocation refers to the process of allocating memory at runtime (during the execution of the program), instead of at compile-time. In C++, this is done using the new and delete operators.
+int *ptr = new int(5);
+cout << *ptr; // Output: 5
+delete ptr;
